@@ -1,7 +1,34 @@
 import numpy as np
 
 
-class NeuralNetwork():
+class SingleLayerNeuralNetwork():
+
+    def __init__(self):
+        np.random.seed(1)
+        self.synapticWeights = 2 * np.random.random((3, 1)) - 1
+
+    def __sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+
+    def __sigmoid_derivative(self, x):
+        return x * (1 - x)
+
+    def predict(self, inputs):
+        return self.__sigmoid(np.dot(inputs, self.synapticWeights))
+
+    def train(self, trainingSet_inputs, trainingSet_outputs, numOfIterations):
+        for i in xrange(numOfIterations):
+            output = self.predict(trainingSet_inputs)
+
+            error = trainingSet_outputs - output
+
+            delta = np.dot(trainingSet_inputs.T,
+                           error * self.__sigmoid_derivative(output))
+
+            self.synapticWeights += delta
+
+
+class TrippleLayerNeuralNetwork():
 
     def __init__(self):
         np.random.seed(1)
@@ -30,7 +57,7 @@ class NeuralNetwork():
 
 if __name__ == '__main__':
     # initialize a NN
-    neuralNetwork = NeuralNetwork()
+    neuralNetwork = SingleLayerNeuralNetwork()
 
     print('Random starting synaptic weights:')
 
