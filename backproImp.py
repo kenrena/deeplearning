@@ -8,8 +8,7 @@ def sigmoid(x):
     Calculate sigmoid
     """
     return 1 / (1 + np.exp(-x))
-
-
+# adafadsf
 # Hyperparameters
 n_hidden = 2  # number of hidden units
 epochs = 900
